@@ -1,7 +1,23 @@
 # 1.0.0 verification: Set It Down
 
-Built and checked 2026-10-07, from the README Rusty sent. Not released: waits on Rusty's look at the
-booth photos and his word.
+Built and checked 2026-10-07, from the README Rusty sent. **Released 2026-10-07 in pack 1.77.0** on
+Rusty's go: tag `v1.0.0` at `f6bece7`, the jar and `wiki.zip` on the GitHub release (deployment
+record: `knowledge/releases/pack-1.77.0.md` in the server repo).
+
+## The release gate
+
+`./gradlew clean build` again on the tagged tree, 2026-10-07, on Xephyr `:7`, one client: 58 JUnit
+(the clean build took `:test` from Gradle's build cache, so it was run again with `test --rerun`,
+green), 25 GameTests, the booth's 20 checks. The jar came out byte for byte the same, sha1
+`0049226f`. Both release assets were downloaded back and match:
+
+- `setitdown-1.0.0.jar`, 117887 bytes, sha1 `0049226f5ed004c49f82bce2bd27904806e397d3`;
+- `wiki.zip`, 230230 bytes, sha1 `e50837a38b0b34743142fa4dda18f36f0387e170` (`tools/wiki/bundle.py`:
+  page `set-it-down`, five images).
+
+On the box after the restart: the jar's sha1 in `/data/mods`, `Set It Down 1.0.0 (setitdown)` in the
+new log, 0 missing registry entries, the 38 baseline errors, 20.000 TPS, the Hub's "server matches
+the published pack", and the live `/wiki/set-it-down` and `/wiki/news`.
 
 ## The gate
 
