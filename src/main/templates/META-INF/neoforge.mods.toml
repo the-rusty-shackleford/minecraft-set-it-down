@@ -1,0 +1,30 @@
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
+issueTrackerURL="https://github.com/the-rusty-shackleford/minecraft-set-it-down/issues"
+
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+authors="Rusty Shackleford, nfx"
+description='''
+Set any item down on any block face as decoration: press the Set Down key (Y) at a block and
+what you hold is put there, lying flat on floors and ceilings, hanging on walls. Turn it, tip it,
+pile more of the same on it, take it back with a click. Armour stands as the worn piece. It uses
+a key of its own, so no right-click of any item or block changes.
+'''
+
+[[dependencies.${mod_id}]]
+    modId="neoforge"
+    type="required"
+    versionRange="[${neo_version},)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"

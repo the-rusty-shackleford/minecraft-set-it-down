@@ -1,0 +1,17 @@
+{
+  "entity.setitdown.display": "Display",
+  "key.categories.setitdown": "Set It Down",
+  "key.setitdown.set_down": "Set Down",
+  "setitdown.message.set_down": "Set down %s. Hit it to take it back.",
+  "setitdown.message.set_down_two_hits": "Set down %s. Hit it twice to take it back.",
+  "setitdown.message.joined": "%s: %s on the pile",
+  "setitdown.message.full": "That pile is full",
+  "setitdown.message.no_room": "No room here",
+  "setitdown.message.nothing_to_rest_on": "Nothing to rest on here",
+  "setitdown.message.not_here": "You can't set things down here",
+  "setitdown.message.nothing_held": "Hold something to set it down",
+  "setitdown.message.refused": "%s can't be set down",
+  "setitdown.message.not_the_same": "Only %s piles here",
+  "setitdown.message.does_not_pile": "%s doesn't pile",
+  "setitdown.message.hit_again": "Hit it again to take it back"
+}

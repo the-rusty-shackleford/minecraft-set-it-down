@@ -1,0 +1,23 @@
+{
+  "values": [
+    "minecraft:compass", "minecraft:recovery_compass", "minecraft:clock",
+    "minecraft:ender_pearl", "minecraft:ender_eye", "minecraft:egg", "minecraft:snowball", "minecraft:slime_ball",
+    "minecraft:fire_charge", "minecraft:firework_star", "minecraft:name_tag", "minecraft:rabbit_foot",
+    "minecraft:nautilus_shell", "minecraft:heart_of_the_sea", "minecraft:flint", "minecraft:honeycomb",
+    "minecraft:amethyst_shard", "minecraft:prismarine_shard", "minecraft:prismarine_crystals",
+    "minecraft:apple", "minecraft:golden_apple", "minecraft:enchanted_golden_apple", "minecraft:cookie",
+    "minecraft:carrot", "minecraft:golden_carrot", "minecraft:potato", "minecraft:baked_potato",
+    "minecraft:poisonous_potato", "minecraft:beetroot", "minecraft:coal", "minecraft:charcoal",
+    {"id": "#c:ingots", "required": false},
+    {"id": "#c:gems", "required": false},
+    {"id": "#c:raw_materials", "required": false},
+    {"id": "#c:eggs", "required": false},
+    {"id": "#c:ender_pearls", "required": false},
+    {"id": "#c:slime_balls", "required": false},
+    {"id": "rangedweaponsmod:pistol", "required": false},
+    {"id": "rangedweaponsmod:revolver", "required": false},
+    {"id": "rangedweaponsmod:pistol_magazine", "required": false},
+    {"id": "rangedweaponsmod:rifle_magazine", "required": false},
+    {"id": "vanillawheels:key_fob", "required": false}
+  ]
+}

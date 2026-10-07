@@ -1,0 +1,14 @@
+{
+  "values": [
+    "minecraft:sweet_berries", "minecraft:glow_berries", "minecraft:redstone", "minecraft:glowstone_dust",
+    "minecraft:gunpowder", "minecraft:sugar", "minecraft:bone_meal",
+    {"id": "#c:nuggets", "required": false},
+    {"id": "#c:seeds", "required": false},
+    {"id": "#c:dusts", "required": false},
+    {"id": "rangedweaponsmod:small_round", "required": false},
+    {"id": "rangedweaponsmod:round", "required": false},
+    {"id": "rangedweaponsmod:shell", "required": false},
+    {"id": "rangedweaponsmod:slug", "required": false},
+    {"id": "rangedweaponsmod:lock_on_chip", "required": false}
+  ]
+}

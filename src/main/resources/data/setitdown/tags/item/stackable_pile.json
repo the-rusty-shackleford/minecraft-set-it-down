@@ -1,0 +1,22 @@
+{
+  "values": [
+    "minecraft:iron_ingot", "minecraft:gold_ingot", "minecraft:copper_ingot", "minecraft:netherite_ingot",
+    "minecraft:iron_nugget", "minecraft:gold_nugget",
+    "minecraft:diamond", "minecraft:emerald", "minecraft:lapis_lazuli", "minecraft:amethyst_shard", "minecraft:quartz",
+    "minecraft:book", "minecraft:paper", "minecraft:map", "minecraft:filled_map",
+    "minecraft:bread", "minecraft:cookie", "minecraft:pumpkin_pie",
+    "minecraft:leather", "minecraft:rabbit_hide",
+    "minecraft:brick", "minecraft:nether_brick",
+    "minecraft:blaze_rod", "minecraft:breeze_rod", "minecraft:stick",
+    {"id": "#c:ingots", "required": false},
+    {"id": "#c:nuggets", "required": false},
+    {"id": "#c:gems", "required": false},
+    {"id": "#c:rods", "required": false},
+    {"id": "#c:music_discs", "required": false},
+    {"id": "#c:leathers", "required": false},
+    {"id": "#c:bricks", "required": false},
+    {"id": "#c:foods/bread", "required": false},
+    {"id": "#c:foods/cookie", "required": false},
+    {"id": "#c:foods/pie", "required": false}
+  ]
+}

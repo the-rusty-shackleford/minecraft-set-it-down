@@ -1,0 +1,15 @@
+{
+  "values": [
+    "#minecraft:swords",
+    "minecraft:trident", "minecraft:bow", "minecraft:crossbow", "minecraft:mace",
+    {"id": "#c:tools/bow", "required": false},
+    {"id": "#c:tools/crossbow", "required": false},
+    {"id": "#c:tools/spear", "required": false},
+    {"id": "#c:tools/mace", "required": false},
+    {"id": "rangedweaponsmod:shotgun", "required": false},
+    {"id": "rangedweaponsmod:rifle", "required": false},
+    {"id": "rangedweaponsmod:scoped_rifle", "required": false},
+    {"id": "rangedweaponsmod:machine_gun", "required": false},
+    {"id": "rangedweaponsmod:rocket_launcher", "required": false}
+  ]
+}

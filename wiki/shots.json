@@ -1,0 +1,9 @@
+{
+  "shots": [
+    {"from": "run/booth/screenshots/booth-table-back.png", "to": "img/table.webp"},
+    {"from": "run/booth/screenshots/booth-sizes.png", "to": "img/sizes.webp", "crop": [300, 280, 980, 500]},
+    {"from": "run/booth/screenshots/booth-armour.png", "to": "img/armour.webp"},
+    {"from": "run/booth/screenshots/booth-wall-armour.png", "to": "img/wall.webp"},
+    {"from": "run/booth/screenshots/booth-ceiling.png", "to": "img/ceiling.webp"}
+  ]
+}

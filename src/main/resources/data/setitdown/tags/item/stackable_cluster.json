@@ -1,0 +1,29 @@
+{
+  "values": [
+    "minecraft:coal", "minecraft:charcoal", "minecraft:raw_iron", "minecraft:raw_gold", "minecraft:raw_copper",
+    "minecraft:redstone", "minecraft:glowstone_dust", "minecraft:gunpowder", "minecraft:sugar", "minecraft:bone_meal",
+    "minecraft:egg", "minecraft:slime_ball", "minecraft:ender_pearl",
+    "minecraft:apple", "minecraft:golden_apple", "minecraft:carrot", "minecraft:golden_carrot",
+    "minecraft:potato", "minecraft:baked_potato", "minecraft:poisonous_potato", "minecraft:beetroot",
+    "minecraft:sweet_berries", "minecraft:glow_berries", "minecraft:melon_slice", "minecraft:chorus_fruit",
+    "minecraft:beef", "minecraft:cooked_beef", "minecraft:porkchop", "minecraft:cooked_porkchop",
+    "minecraft:chicken", "minecraft:cooked_chicken", "minecraft:mutton", "minecraft:cooked_mutton",
+    "minecraft:rabbit", "minecraft:cooked_rabbit",
+    "minecraft:cod", "minecraft:cooked_cod", "minecraft:salmon", "minecraft:cooked_salmon",
+    "minecraft:tropical_fish", "minecraft:pufferfish",
+    "minecraft:wheat_seeds", "minecraft:beetroot_seeds", "minecraft:melon_seeds", "minecraft:pumpkin_seeds",
+    {"id": "#c:raw_materials", "required": false},
+    {"id": "#c:dusts", "required": false},
+    {"id": "#c:eggs", "required": false},
+    {"id": "#c:slime_balls", "required": false},
+    {"id": "#c:ender_pearls", "required": false},
+    {"id": "#c:seeds", "required": false},
+    {"id": "#c:foods/fruit", "required": false},
+    {"id": "#c:foods/vegetable", "required": false},
+    {"id": "#c:foods/berry", "required": false},
+    {"id": "#c:foods/raw_meat", "required": false},
+    {"id": "#c:foods/cooked_meat", "required": false},
+    {"id": "#c:foods/raw_fish", "required": false},
+    {"id": "#c:foods/cooked_fish", "required": false}
+  ]
+}
