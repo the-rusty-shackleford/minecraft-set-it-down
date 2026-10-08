@@ -29,10 +29,16 @@ one key, Y. Chunkworks, AGPL-3.0-or-later, `com.chunkworks.setitdown`; nests Car
   record.
 - Not yet seen: anyone setting something down on the box, or Rusty in his own client.
 
-## 1.1.0: a friend's feedback on 1.0.0, built 2026-10-07, unreleased
+## 1.1.0: a friend's feedback on 1.0.0, released 2026-10-08 in pack 1.78.0
 
-Rusty passed it on with "sneak this into the same release after all done with submersibles": the
-next pack that ships the submarines carries these fixes too, on his go.
+Rusty passed it on with "sneak this into the same release after all done with submersibles", and it
+shipped with the submarines on his go: tag `v1.1.0` at `bf528ca`; the release gate (2026-10-08,
+`clean build --no-build-cache` on `ff6393f`) green with 68 JUnit, 26 GameTests and the booth's 28
+checks; sha1 `75e4c7da` on GitHub and on the server (the server repo's
+`knowledge/releases/pack-1.78.0.md`). `bf528ca` adds only the wiki's images, all six now from 1.1.0's
+booth, and two booth cameras: the ceiling photo had been the inside of a reference armour stand's
+chestplate since 1.0.0 (its eye stood in the stand), the wall's too close for the hung armour. The
+booth ran green again on it. Not yet seen: Rusty's look at 1.1.0 (photos or game), and the friend's.
 
 - **Models (D-0005).** "Some models are defaulting to 2d sprite model when 3d model exists from
   resource packs. Ex, all tools / weapons, some food like the apple." The pack's Modefite gives
@@ -49,7 +55,7 @@ next pack that ships the submarines carries these fixes too, on his go.
   with 3d models in effect". Flat copies that would overlap lie one on another; thick ones are
   spread apart and drawn back into the square; a pile too tall for its box is heaped; a heap is
   never taller than its box.
-- **Gate (2026-10-07), committed, unreleased:**
+- **Gate (2026-10-07), at the commit:**
   - 68 JUnit; the twelve new rules each caught by `devtools/verification/mutations-1.1.0.py`.
   - 26 GameTests.
   - The booth, 29 checks green. It fetches Modefite, the Ranged Weapons Mod and Metals and
