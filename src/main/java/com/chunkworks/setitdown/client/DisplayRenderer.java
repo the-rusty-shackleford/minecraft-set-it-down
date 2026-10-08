@@ -32,15 +32,15 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.joml.Matrix4f;
 
 /**
- * Draws a display. An item is drawn through the game's item renderer in the fixed view, as an item
- * frame's item is, so whatever model a resource pack gives it is what is seen; posed by the domain's
- * {@link com.chunkworks.setitdown.domain.Pose} from its measured box, so it rests on the surface.
- * Armour is drawn as the piece worn by an invisible stand, through the game's entity renderer.
+ * Draws a display. An item is drawn through the game's item renderer as a hand draws it, at rest
+ * ({@link HeldView}), so the model a resource pack gives a held item is what is seen (D-0005); posed
+ * by the domain's {@link com.chunkworks.setitdown.domain.Pose} from its measured box, so it rests on
+ * the surface at its own size (D-0006) and copies never pass through each other (D-0007). Armour
+ * is drawn as the piece worn by an invisible stand, through the game's entity renderer.
  */
 public final class DisplayRenderer extends EntityRenderer<DisplayEntity> {
     private final ItemRenderer items;
@@ -70,14 +70,17 @@ public final class DisplayRenderer extends EntityRenderer<DisplayEntity> {
             pose.popPose();
             return;
         }
-        Box box = BoundsCache.item(stack, display.level(), display.getId());
+        BoundsCache.Entry entry = BoundsCache.item(stack, display.level(), display.getId());
         // Its size (D-0004), times the player's own scale, whose 0.5 is as designed.
-        double scale = Displayable.size(stack).side() * SetItDownConfig.ITEM_SCALE.get() / 0.5;
-        List<Matrix4f> poses = state.items(display, box, scale);
+        double side = Displayable.size(stack).side();
+        double scale = side * SetItDownConfig.ITEM_SCALE.get() / 0.5;
+        List<Matrix4f> poses = state.items(display, entry, scale, side);
         for (int i = 0; i < poses.size(); i++) {
             pose.pushPose();
             pose.mulPose(poses.get(i));
-            items.renderStatic(stack, ItemDisplayContext.FIXED, light, OverlayTexture.NO_OVERLAY, pose, buffers, display.level(), display.getId() + i);
+            int seed = display.getId() + i;
+            HeldView.draw(entry.own(), entry.atRest(), () -> items.renderStatic(stack, HeldView.VIEW, light, OverlayTexture.NO_OVERLAY,
+                    pose, buffers, display.level(), seed));
             pose.popPose();
         }
     }

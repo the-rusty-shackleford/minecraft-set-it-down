@@ -47,6 +47,14 @@ final class HitboxTest {
     }
 
     @Test
+    void aWholeBlocksBoxIsTheCubeItIsDrawnAs() {
+        assertEquals(new Hitbox.Size(0.5, 0.5, 0.5), Hitbox.of(Hitbox.Piece.BLOCK, Face.UP, 0, 0.5), "a half-block cube, half a block deep");
+        assertEquals(0.5 * Math.sqrt(2.0), Hitbox.of(Hitbox.Piece.BLOCK, Face.UP, 1, 0.5).out(), 1e-12, "leaning, its diagonal deep");
+        assertEquals(0.5, Hitbox.of(Hitbox.Piece.BLOCK, Face.NORTH, 2, 0.5).out(), 1e-12, "on its edge, a cube again");
+        assertEquals(0.45, Hitbox.of(Hitbox.Piece.BLOCK, Face.UP, 2, 0.3).out(), 1e-12, "never shallower than an item's box");
+    }
+
+    @Test
     void armourIsAsTallAsThePieceOnFloorsAndWalls() {
         for (Hitbox.Piece p : new Hitbox.Piece[] {Hitbox.Piece.HEAD, Hitbox.Piece.CHEST, Hitbox.Piece.LEGS, Hitbox.Piece.FEET, Hitbox.Piece.ELYTRA}) {
             Hitbox.Size floor = Hitbox.of(p, Face.UP, 0, 0.5);

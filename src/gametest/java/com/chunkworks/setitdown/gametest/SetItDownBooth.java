@@ -230,9 +230,10 @@ public final class SetItDownBooth {
             stand.setItemSlot(stand.getEquipmentSlotForItem(floorArmour[i]), floorArmour[i].copy());
             level.addFreshEntity(stand);
         }
-        // Sizes (D-0004), on the tips' bench's far side: a sword, a pickaxe, a book, a compass, a nugget.
-        fill(level, 11, 0, -4, 15, 0, -4, Blocks.SMOOTH_STONE);
-        Item[] sizes = {Items.DIAMOND_SWORD, Items.IRON_PICKAXE, Items.BOOK, Items.COMPASS, Items.GOLD_NUGGET};
+        // Sizes (D-0004, D-0006), on the tips' bench's far side: a sword, a pickaxe, a book, a compass,
+        // a nugget, a shield, a pistol.
+        fill(level, 11, 0, -4, 17, 0, -4, Blocks.SMOOTH_STONE);
+        Item[] sizes = {Items.DIAMOND_SWORD, Items.IRON_PICKAXE, Items.BOOK, Items.COMPASS, Items.GOLD_NUGGET, Items.SHIELD, pistol()};
         for (int i = 0; i < sizes.length; i++) {
             all.add(dress(level, sizes[i], 11 + i, 0, -4, Face.UP, 0.5, 0.5, 0, 1));
         }
@@ -249,6 +250,17 @@ public final class SetItDownBooth {
         all.add(lying);
         tip(sp, leaning, 1);
         tip(sp, lying, 2);
+        // The held bench (D-0005..D-0007), south of the keys' bench: as a hand draws them, at rest. Eight
+        // loaves and eight cookies (piles too tall for their box: heaped), four carrots, an apple, a
+        // sword, a log and a furnace.
+        fill(level, -3, 0, 8, 3, 0, 8, Blocks.SMOOTH_STONE);
+        all.add(dress(level, Items.BREAD, -3, 0, 8, Face.UP, 0.5, 0.5, 0, 8));
+        all.add(dress(level, Items.COOKIE, -2, 0, 8, Face.UP, 0.5, 0.5, 0, 8));
+        all.add(dress(level, Items.CARROT, -1, 0, 8, Face.UP, 0.5, 0.5, 0, 4));
+        all.add(dress(level, Items.APPLE, 0, 0, 8, Face.UP, 0.5, 0.5, 0, 1));
+        all.add(dress(level, Items.IRON_SWORD, 1, 0, 8, Face.UP, 0.5, 0.5, 7, 1));
+        all.add(dress(level, Items.OAK_LOG, 2, 0, 8, Face.UP, 0.5, 0.5, 0, 1));
+        all.add(dress(level, Items.FURNACE, 3, 0, 8, Face.UP, 0.5, 0.5, 4, 1));
         // The tips: three swords on their bench, flat, leaning, on edge.
         for (int i = 0; i < 3; i++) {
             DisplayEntity d = dress(level, Items.IRON_SWORD, 11 + i, 0, -2, Face.UP, 0.5, 0.5, 0, 1);
@@ -280,6 +292,11 @@ public final class SetItDownBooth {
         aim(sp, new Vec3(0.5, ground + 2.6, 5.0), new Vec3(0.0, ground + 1.0, -3.0));
         dressed = level.getEntitiesOfClass(DisplayEntity.class, sp.getBoundingBox().inflate(64)).size();
         verdict("every scene is dressed", () -> dressed >= all.size() + 2 ? null : dressed + " displays, " + (all.size() + 2) + " meant");
+    }
+
+    /** effects: the Ranged Weapons Mod's pistol, which the booth runs with (devtools/booth/fetch.py) */
+    private static Item pistol() {
+        return BuiltInRegistries.ITEM.get(ResourceLocation.parse("rangedweaponsmod:pistol"));
     }
 
     private static DisplayEntity dress(ServerLevel level, Item item, double x, int y, int z, Face face, double u, double v, int turn, int count) {
@@ -349,11 +366,30 @@ public final class SetItDownBooth {
         shot(s, t, mc, "booth-armour", new Vec3(8.0, 1.6, 6.8), new Vec3(8.0, 0.5, 2.5));
         shot(s, t, mc, "booth-armour-side", new Vec3(4.0, 1.2, 3.0), new Vec3(8.0, 0.4, 3.5));
         shot(s, t, mc, "booth-tips", new Vec3(13.6, 1.5, 0.4), new Vec3(12.0, 1.1, -1.5));
-        shot(s, t, mc, "booth-sizes", new Vec3(13.5, 3.4, -0.2), new Vec3(13.5, 1.0, -3.5));
+        shot(s, t, mc, "booth-sizes", new Vec3(14.5, 3.9, 0.2), new Vec3(14.5, 1.0, -3.5));
         shot(s, t, mc, "booth-leggings", new Vec3(12.9, 1.3, 9.2), new Vec3(12.9, 0.6, 6.4));
         shot(s, t, mc, "booth-tips-side", new Vec3(15.6, 1.35, -1.5), new Vec3(12.0, 1.1, -1.5));
         shot(s, t, mc, "booth-corner", new Vec3(15.5, 2.9, 3.6), new Vec3(15.4, 1.0, 3.4));
         shot(s, t, mc, "booth-plate", new Vec3(2.5, 2.3, -1.0), new Vec3(2.5, 1.1, -2.5));
+        shot(s, t, mc, "booth-held", new Vec3(0.5, 2.9, 11.2), new Vec3(0.5, 1.0, 8.5));
+        shot(s, t, mc, "booth-held-heaps", new Vec3(-2.0, 2.1, 9.9), new Vec3(-2.0, 1.0, 8.5));
+        // What a hand holds beside what was set down: an apple in the main hand, a sword in the other,
+        // the hands shown (the photographs hide them with the rest of the screen's overlay).
+        s.add(new Step(t[0], () -> {
+            mc.options.hideGui = false;
+            onServer(mc, sp -> {
+                sp.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.APPLE));
+                sp.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.IRON_SWORD));
+            });
+        }));
+        shot(s, t, mc, "booth-held-hand", new Vec3(0.5, 2.3, 10.4), new Vec3(0.5, 1.0, 8.5));
+        s.add(new Step(t[0], () -> {
+            mc.options.hideGui = true;
+            onServer(mc, sp -> {
+                sp.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                sp.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+            });
+        }));
         s.add(new Step(t[0], () -> verdict("every scene's displays are on the client", () -> clientDisplays(mc) >= dressed ? null
                 : clientDisplays(mc) + " of " + dressed)));
         s.add(new Step(t[0], () -> measured(mc)));
@@ -374,13 +410,39 @@ public final class SetItDownBooth {
         t[0] += 2;
     }
 
-    /** The measuring renders behave: armour has a body's size, a flat item is thin, a 3D model is not. */
+    /**
+     * The measuring renders behave: armour has a body's size, a flat item is thin, a 3D model is not;
+     * the hand's model is drawn where a resource pack gives one (D-0005), the item's own elsewhere;
+     * a model is measured at its own size, not shrunk as an item frame shrinks it (D-0006).
+     */
     private static void measured(Minecraft mc) {
         Box chest = BoundsCache.armour(new ItemStack(Items.DIAMOND_CHESTPLATE), mc.level);
         Box helmet = BoundsCache.armour(new ItemStack(Items.IRON_HELMET), mc.level);
-        Box paper = BoundsCache.item(new ItemStack(Items.PAPER), mc.level, 0);
-        Box lantern = BoundsCache.item(new ItemStack(Items.LANTERN), mc.level, 0);
+        BoundsCache.Entry paperDrawn = BoundsCache.item(new ItemStack(Items.PAPER), mc.level, 0);
+        Box paper = paperDrawn.box();
+        Box lantern = BoundsCache.item(new ItemStack(Items.LANTERN), mc.level, 0).box();
+        BoundsCache.Entry apple = BoundsCache.item(new ItemStack(Items.APPLE), mc.level, 0);
+        BoundsCache.Entry sword = BoundsCache.item(new ItemStack(Items.IRON_SWORD), mc.level, 0);
+        BoundsCache.Entry log = BoundsCache.item(new ItemStack(Items.OAK_LOG), mc.level, 0);
+        BoundsCache.Entry shield = BoundsCache.item(new ItemStack(Items.SHIELD), mc.level, 0);
+        BoundsCache.Entry pistol = BoundsCache.item(new ItemStack(pistol()), mc.level, 0);
         LOG.info("booth: measured chestplate {} helmet {} paper {} lantern {}", chest, helmet, paper, lantern);
+        LOG.info("booth: measured apple {} sword {} log {} shield {} pistol {}", apple, sword, log, shield, pistol);
+        LOG.info("booth: measured pickaxe {} diamond sword {}", BoundsCache.item(new ItemStack(Items.IRON_PICKAXE), mc.level, 0),
+                BoundsCache.item(new ItemStack(Items.DIAMOND_SWORD), mc.level, 0));
+        verdict("the hand's 3D apple is drawn, not the item's flat one (Modefite, Fresh Food)",
+                () -> apple.rest() != null && apple.box().maxZ() - apple.box().minZ() > 0.2 ? null : apple.toString());
+        verdict("the hand's apple stands on its base, as it was built (it could stand)",
+                () -> apple.rest() == com.chunkworks.setitdown.domain.Rest.ON_BASE ? null : apple.toString());
+        verdict("the hand's apple is as tall as the item's own shows (14 of 16 pixels), not its built 7.4",
+                () -> Math.abs(apple.box().maxZ() - apple.box().minZ() - 0.875) < 0.02 ? null : apple.toString());
+        verdict("the hand's 3D sword is drawn (Modefite, Refined Tools)", () -> sword.rest() != null ? null : sword.toString());
+        verdict("the 3D sword lies corner to corner, as its sprite did", () -> sword.slanted()
+                && Math.abs((sword.box().maxX() - sword.box().minX()) - (sword.box().maxY() - sword.box().minY())) < 0.15 ? null : sword.toString());
+        verdict("an item no pack draws otherwise in a hand is drawn by its own model", () -> paperDrawn.rest() == null ? null : paperDrawn.toString());
+        verdict("a block is measured whole, not at an item frame's half", () -> Math.abs(log.box().maxX() - log.box().minX() - 1.0) < 0.02 ? null : log.toString());
+        verdict("a shield is measured whole, taller than its square", () -> shield.box().maxY() - shield.box().minY() > 1.0 ? null : shield.toString());
+        verdict("the pistol at its own size, not an item frame's 0.45", () -> pistol.box().maxX() - pistol.box().minX() > 0.6 ? null : pistol.toString());
         // Where each sits on the stand, not a guessed size: Armored Legacy's pieces are bigger than vanilla's.
         verdict("a worn chestplate is measured on the stand's body", () -> chest.minY() > 0.5 && chest.minY() < 0.9 && chest.maxY() > 1.3 && chest.maxY() < 1.9 ? null : chest.toString());
         verdict("a worn helmet is measured on the stand's head", () -> helmet.minY() > 1.2 && helmet.minY() < 1.6 && helmet.maxY() - helmet.minY() < 1.3 ? null : helmet.toString());
@@ -416,8 +478,7 @@ public final class SetItDownBooth {
             stand(sp, 0.5, 5.6, new Vec3(0.5, ground + 1.0, 3.5));
         })));
         s.add(new Step(t += KEY, () -> before = displays(mc).size()));
-        s.add(new Step(t += 1, () -> xkey("down", "y")));
-        s.add(new Step(t += 2, () -> xkey("up", "y")));
+        s.add(new Step(t += 1, () -> xkey("tap", "y")));
         s.add(new Step(t += KEY, () -> verdict("a real Y sets the held item down where the crosshair is", () -> at(mc, 0, Items.GOLDEN_APPLE) != null
                 ? null : "displays " + before + " -> " + displays(mc).size())));
         // Shift held for real, then Y at the bench's west block, iron ingots in hand.
@@ -428,8 +489,7 @@ public final class SetItDownBooth {
         s.add(new Step(t += 4, () -> verdict("the key helper holds Left Shift and the player sneaks",
                 () -> InputConstants.isKeyDown(mc.getWindow().getWindow(), org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT_SHIFT) && mc.player.isShiftKeyDown()
                         ? null : "shift " + InputConstants.isKeyDown(mc.getWindow().getWindow(), org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT_SHIFT))));
-        s.add(new Step(t += 1, () -> xkey("down", "y")));
-        s.add(new Step(t += 2, () -> xkey("up", "y")));
+        s.add(new Step(t += 1, () -> xkey("tap", "y")));
         s.add(new Step(t += KEY, () -> verdict("with Left Shift held, Y still sets it down", () -> at(mc, -1, Items.IRON_INGOT) != null ? null : "none at the bench's west block")));
         s.add(new Step(t += 1, () -> xkey("up", "Shift_L")));
         // Y with the crosshair on the apples: one more on the pile.
@@ -437,8 +497,7 @@ public final class SetItDownBooth {
             sp.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_APPLE, 4));
             stand(sp, 0.5, 5.6, new Vec3(0.5, ground + 1.05, 3.5));
         })));
-        s.add(new Step(t += KEY, () -> xkey("down", "y")));
-        s.add(new Step(t += 2, () -> xkey("up", "y")));
+        s.add(new Step(t += KEY, () -> xkey("tap", "y")));
         s.add(new Step(t += KEY, () -> verdict("Y at a display of the same item piles it", () -> {
             DisplayEntity d = at(mc, 0, Items.GOLDEN_APPLE);
             return d != null && d.count() == 2 ? null : "count " + (d == null ? "none" : d.count());
@@ -529,22 +588,41 @@ public final class SetItDownBooth {
     // --- plumbing ---------------------------------------------------------------------
 
     /**
-     * effects: starts devtools/booth/xkey.py pressing ({@code down}) or letting go ({@code up}) of
-     * {@code keysym} on this client's display; null, with a FAIL line, if it would not start. The
-     * helper refuses a display with a window manager, so it never types on a desktop.
+     * effects: starts devtools/booth/xkey.py pressing ({@code down}), letting go ({@code up}) or
+     * tapping ({@code tap}) {@code keysym} on this client's display; null, with a FAIL line, if it
+     * would not start. The helper refuses a display with a window manager, so it never types on a
+     * desktop.
      */
     @org.jetbrains.annotations.Nullable
     private static Process xkey(String action, String keysym) {
+        // Each press starts a helper process of its own, and a release's can start sooner than its
+        // press's finished: the key would then stay down, and X repeat it. So a release waits for
+        // its press to be sent.
+        Process press = pressed.remove(keysym);
+        if (action.equals("up") && press != null) {
+            try {
+                press.waitFor(5, java.util.concurrent.TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
         Path script = Path.of(System.getProperty("user.dir"), "..", "..", "devtools", "booth", "xkey.py").normalize();
         Path uv = Path.of(System.getProperty("user.home"), ".local", "bin", "uv");
         try {
-            return new ProcessBuilder(Files.isExecutable(uv) ? uv.toString() : "uv", "run", "--no-project", "--with", "python-xlib",
+            Process helper = new ProcessBuilder(Files.isExecutable(uv) ? uv.toString() : "uv", "run", "--no-project", "--with", "python-xlib",
                     "python", script.toString(), action, keysym).inheritIO().start();
+            if (action.equals("down")) {
+                pressed.put(keysym, helper);
+            }
+            return helper;
         } catch (IOException e) {
             LOG.error("booth: FAIL the key helper starts ({} {}) -- {}", action, keysym, e.toString());
             return null;
         }
     }
+
+    /** The press helpers still to be waited for, by key: a key's release waits for its press. */
+    private static final java.util.Map<String, Process> pressed = new java.util.HashMap<>();
 
     private static void onServer(Minecraft mc, Consumer<ServerPlayer> action) {
         MinecraftServer server = mc.getSingleplayerServer();

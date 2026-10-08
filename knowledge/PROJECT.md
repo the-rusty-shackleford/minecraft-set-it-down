@@ -29,10 +29,42 @@ one key, Y. Chunkworks, AGPL-3.0-or-later, `com.chunkworks.setitdown`; nests Car
   record.
 - Not yet seen: anyone setting something down on the box, or Rusty in his own client.
 
+## 1.1.0: a friend's feedback on 1.0.0, built 2026-10-07, unreleased
+
+Rusty passed it on with "sneak this into the same release after all done with submersibles": the
+next pack that ships the submarines carries these fixes too, on his go.
+
+- **Models (D-0005).** "Some models are defaulting to 2d sprite model when 3d model exists from
+  resource packs. Ex, all tools / weapons, some food like the apple." The pack's Modefite gives
+  Fresh Food's and Refined Tools' 3D models only to the hands' views; 1.0.0 drew the item-frame
+  view. Now drawn in a hand's view, the hand's pose swapped for a resting one (a client mixin): a
+  model only the hand draws stands on its base if it could, else lies on its broadest face, a
+  long one corner to corner as its sprite drew it.
+- **Sizes (D-0006).** "Pistol & shield are unrealistically small, should do a pass on other items
+  that might be under sized." The cause was the item frame's own shrinking (a block, a shield to
+  half, the pistol to 0.45), multiplied by the size. Now a model is drawn at its own size, filling
+  its square at most; a hand's model as big as the item's own shows; a whole block's box is its
+  cube. Shields moved to long, pistols and revolvers to normal.
+- **Piles with 3D models (D-0007).** Rusty: "should also be conscious of stackable items clipping
+  with 3d models in effect". Flat copies that would overlap lie one on another; thick ones are
+  spread apart and drawn back into the square; a pile too tall for its box is heaped; a heap is
+  never taller than its box.
+- **Gate (2026-10-07), committed, unreleased:**
+  - 68 JUnit; the twelve new rules each caught by `devtools/verification/mutations-1.1.0.py`.
+  - 26 GameTests.
+  - The booth, 29 checks green. It fetches Modefite, the Ranged Weapons Mod and Metals and
+    Materials and lists Fresh Food as an incompatible pack as Rusty's game does: 1.0.0's booth ran
+    without either, so it never saw the friend's flat sprites. Its key taps are one helper each,
+    after a release sent from a second helper held Y past X's repeat delay.
+  - Photos in `run/booth/screenshots/` (`booth-held*.png` new); 1.0.0's for comparison were kept
+    outside the repo.
+
 ## Decisions
 
 D-0001 the key (no right-click changes), D-0002 support, room, clamp and the give, D-0003 armour on
-an invisible stand, D-0004 relative sizes. The README's departures are listed in `README.md`.
+an invisible stand, D-0004 relative sizes, D-0005 the hand's model at rest, D-0006 at its own size
+(shields long, pistols normal), D-0007 copies never pass through each other. The README's
+departures are listed in `README.md`.
 
 ## Shape
 

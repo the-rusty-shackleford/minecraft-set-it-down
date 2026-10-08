@@ -18,9 +18,11 @@
 package com.chunkworks.setitdown.client;
 
 import com.chunkworks.setitdown.DisplayEntity;
+import com.chunkworks.setitdown.Displayable;
 import com.chunkworks.setitdown.domain.Affine;
 import com.chunkworks.setitdown.domain.Box;
 import com.chunkworks.setitdown.domain.Face;
+import com.chunkworks.setitdown.domain.Hitbox;
 import com.chunkworks.setitdown.domain.Pose;
 import com.chunkworks.setitdown.domain.StackLayout;
 import java.util.ArrayList;
@@ -37,7 +39,7 @@ import org.joml.Matrix4f;
  * itself, so it goes when the display goes. Render thread only.
  */
 final class RenderState {
-    private Box box;
+    private BoundsCache.Entry entry;
     private double scale;
     private int turn = -1, tip = -1, count = -1;
     private StackLayout.Kind kind;
@@ -60,12 +62,16 @@ final class RenderState {
         return s;
     }
 
-    /** effects: the matrices, one per item drawn, from an item's fixed view to the display's point (a hair further out by its id, so overlapping displays never z-fight) */
-    List<Matrix4f> items(DisplayEntity d, Box box, double scale) {
+    /**
+     * effects: the matrices, one per item drawn, from an item at rest ({@code entry}) to the
+     * display's point (a hair further out by its id, so overlapping displays never z-fight); its box
+     * on the face is its size's, {@code side}, as the player sees it at {@code scale}
+     */
+    List<Matrix4f> items(DisplayEntity d, BoundsCache.Entry entry, double scale, double side) {
         StackLayout.Kind k = d.kind();
         int n = k == StackLayout.Kind.SINGLE ? 1 : Math.min(d.count(), StackLayout.MOST);
-        if (box != this.box || scale != this.scale || d.turn() != turn || d.tip() != tip || n != count || k != kind || d.face() != face) {
-            this.box = box;
+        if (entry != this.entry || scale != this.scale || d.turn() != turn || d.tip() != tip || n != count || k != kind || d.face() != face) {
+            this.entry = entry;
             this.scale = scale;
             this.turn = d.turn();
             this.tip = d.tip();
@@ -73,8 +79,10 @@ final class RenderState {
             this.kind = k;
             this.face = d.face();
             Affine frame = Pose.faceFrame(face);
+            double depth = Hitbox.of(Displayable.piece(d.item()), face, tip, side).out() * scale / side;
+            List<StackLayout.Slot> slots = Pose.slots(k, n, entry.box(), scale, depth);
             List<Matrix4f> poses = new ArrayList<>(n);
-            for (Affine a : Pose.item(box, scale, turn, tip, StackLayout.layout(k, n), (d.getId() & 15) * 0.0004)) {
+            for (Affine a : Pose.item(entry.box(), entry.seen(), scale, turn, tip, slots, depth, (d.getId() & 15) * 0.0004)) {
                 poses.add(new Matrix4f().set(frame.then(a).columnMajor()));
             }
             itemPoses = List.copyOf(poses);

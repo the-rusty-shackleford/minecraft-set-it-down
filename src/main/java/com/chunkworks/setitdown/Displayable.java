@@ -30,6 +30,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.AnimalArmorItem;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ElytraItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -43,8 +44,14 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public final class Displayable {
     private Displayable() {}
 
-    /** effects: what a display of {@code stack} shows as its box sees it: a piece of armour (worn on an invisible stand), or an item */
+    /**
+     * effects: what a display of {@code stack} shows as its box sees it: a piece of armour (worn on
+     * an invisible stand), a block whose shape is a whole cube (drawn as that cube, D-0006), or an item
+     */
     public static Hitbox.Piece piece(ItemStack stack) {
+        if (stack.getItem() instanceof BlockItem block && cube(block.getBlock())) {
+            return Hitbox.Piece.BLOCK;
+        }
         if (stack.getItem() instanceof AnimalArmorItem) {
             return Hitbox.Piece.ITEM;
         }
@@ -65,7 +72,20 @@ public final class Displayable {
 
     /** effects: whether {@code stack} is armour, shown as the worn piece */
     public static boolean armour(ItemStack stack) {
-        return piece(stack) != Hitbox.Piece.ITEM;
+        return switch (piece(stack)) {
+            case HEAD, CHEST, LEGS, FEET, ELYTRA -> true;
+            case ITEM, BLOCK -> false;
+        };
+    }
+
+    /** effects: whether {@code block}'s own shape is a whole cube; false if it cannot say without a world */
+    private static boolean cube(net.minecraft.world.level.block.Block block) {
+        try {
+            return net.minecraft.world.level.block.Block.isShapeFullBlock(
+                    block.defaultBlockState().getShape(net.minecraft.world.level.EmptyBlockGetter.INSTANCE, BlockPos.ZERO));
+        } catch (RuntimeException needsAWorld) {
+            return false;
+        }
     }
 
     /** effects: how big {@code stack} is set down (D-0004): the first of the long, tool, small and tiny tags it is in; else normal */

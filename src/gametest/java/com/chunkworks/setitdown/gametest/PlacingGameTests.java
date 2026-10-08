@@ -285,6 +285,7 @@ public final class PlacingGameTests {
         helper.assertValueEqual(Displayable.size(new ItemStack(Items.DIAMOND_SWORD)), Size.LONG, "a sword");
         helper.assertValueEqual(Displayable.size(new ItemStack(Items.TRIDENT)), Size.LONG, "a trident");
         helper.assertValueEqual(Displayable.size(new ItemStack(Items.BOW)), Size.LONG, "a bow");
+        helper.assertValueEqual(Displayable.size(new ItemStack(Items.SHIELD)), Size.LONG, "a shield, as big as a sword is long (D-0006)");
         helper.assertValueEqual(Displayable.size(new ItemStack(Items.IRON_PICKAXE)), Size.TOOL, "a pickaxe");
         helper.assertValueEqual(Displayable.size(new ItemStack(Items.BOOK)), Size.NORMAL, "a book");
         helper.assertValueEqual(Displayable.size(new ItemStack(Items.COMPASS)), Size.SMALL, "a compass");
@@ -301,6 +302,23 @@ public final class PlacingGameTests {
         DisplayEntity compass = Rigs.displays(helper).stream().filter(d -> d.item().is(Items.COMPASS)).findFirst().orElseThrow();
         helper.assertTrue(Math.abs(sword.getBoundingBox().getXsize() - 0.8) < 1e-6, "the sword's box 0.8 across: " + sword.getBoundingBox());
         helper.assertTrue(Math.abs(compass.getBoundingBox().getXsize() - 0.375) < 1e-6, "the compass's 0.375: " + compass.getBoundingBox());
+        Rigs.done(p);
+        helper.succeed();
+    }
+
+    @GameTest(template = "bench")
+    public void aWholeBlockIsSetDownAsItsCube(GameTestHelper helper) {
+        helper.assertValueEqual(Displayable.piece(new ItemStack(Items.OAK_LOG)), Hitbox.Piece.BLOCK, "a log, a whole cube");
+        helper.assertValueEqual(Displayable.piece(new ItemStack(Items.CHEST)), Hitbox.Piece.ITEM, "a chest, not a whole cube");
+        helper.assertValueEqual(Displayable.piece(new ItemStack(Items.TORCH)), Hitbox.Piece.ITEM, "a torch, a flat sprite");
+        helper.assertFalse(Displayable.armour(new ItemStack(Items.OAK_LOG)), "a block is not armour");
+        Rigs.floor(helper);
+        ServerPlayer p = Rigs.player(helper, "mason", STAND);
+        p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.OAK_LOG));
+        Rigs.press(helper, p, new BlockPos(3, 0, 4), Direction.UP, 0.5, 0.5);
+        DisplayEntity log = Rigs.displays(helper).stream().filter(d -> d.item().is(Items.OAK_LOG)).findFirst().orElseThrow();
+        helper.assertTrue(Math.abs(log.getBoundingBox().getYsize() - 0.5) < 1e-6,
+                "its box half a block deep, the cube it is drawn as (D-0006): " + log.getBoundingBox());
         Rigs.done(p);
         helper.succeed();
     }

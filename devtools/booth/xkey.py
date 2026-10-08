@@ -5,22 +5,25 @@ Why: NeoForge reads Shift, Control and Alt from GLFW's own key state, which only
 event changes. A press handed straight to Minecraft's key handler leaves that state alone, so
 the booth's check that Descend works under Left Shift would pass on the code that broke it.
 
-Usage: DISPLAY=:7 uv run --no-project --with python-xlib python xkey.py down|up KEYSYM
+Usage: DISPLAY=:7 uv run --no-project --with python-xlib python xkey.py down|up|tap KEYSYM
 
 Effects: sends one fake press (down) or release (up) of KEYSYM, an X keysym name such as
-Shift_L, space or g, and exits 0. Exits 2 without sending on a display that has a window
-manager: that is a desktop someone is using, and the booth's Xephyr has none. Exits 1 on a
-keysym the display has no key for.
+Shift_L, space or g, or a press and its release 50 ms apart (tap), and exits 0. A tap is one
+helper: a press and a release sent from two would hold the key as long as the second takes to
+start, past X's repeat delay (660 ms) when the machine is busy, and the key would repeat. Exits 2
+without sending on a display that has a window manager: that is a desktop someone is using, and
+the booth's Xephyr has none. Exits 1 on a keysym the display has no key for.
 """
 import sys
+import time
 
 from Xlib import X, XK, display
 from Xlib.ext import xtest
 
 
 def main():
-    if len(sys.argv) != 3 or sys.argv[1] not in ('down', 'up'):
-        sys.exit('usage: xkey.py down|up KEYSYM')
+    if len(sys.argv) != 3 or sys.argv[1] not in ('down', 'up', 'tap'):
+        sys.exit('usage: xkey.py down|up|tap KEYSYM')
     d = display.Display()
     wm = d.screen().root.get_full_property(d.intern_atom('_NET_SUPPORTING_WM_CHECK'), X.AnyPropertyType)
     if wm is not None:
@@ -32,8 +35,14 @@ def main():
     if not keycode:
         print(f'xkey: no key for {sys.argv[2]!r}', file=sys.stderr)
         sys.exit(1)
-    xtest.fake_input(d, X.KeyPress if sys.argv[1] == 'down' else X.KeyRelease, keycode)
-    d.sync()
+    if sys.argv[1] in ('down', 'tap'):
+        xtest.fake_input(d, X.KeyPress, keycode)
+        d.sync()
+    if sys.argv[1] == 'tap':
+        time.sleep(0.05)
+    if sys.argv[1] in ('up', 'tap'):
+        xtest.fake_input(d, X.KeyRelease, keycode)
+        d.sync()
 
 
 main()

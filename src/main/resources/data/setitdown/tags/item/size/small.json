@@ -14,8 +14,6 @@
     {"id": "#c:eggs", "required": false},
     {"id": "#c:ender_pearls", "required": false},
     {"id": "#c:slime_balls", "required": false},
-    {"id": "rangedweaponsmod:pistol", "required": false},
-    {"id": "rangedweaponsmod:revolver", "required": false},
     {"id": "rangedweaponsmod:pistol_magazine", "required": false},
     {"id": "rangedweaponsmod:rifle_magazine", "required": false},
     {"id": "vanillawheels:key_fob", "required": false}

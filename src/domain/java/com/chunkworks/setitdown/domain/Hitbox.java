@@ -20,15 +20,16 @@ package com.chunkworks.setitdown.domain;
 /**
  * How big a display's box is: what the crosshair finds it by, and what blocks building through
  * it. An item's is the square of its size on the face (D-0004), a quarter deep; tipped, nine
- * tenths of its side deep (on edge it stands about that tall), never less than the README's 0.45. A piece of armour's is the
- * piece standing (or hanging) there, roughly: 0.6 across and as tall as the piece; on a wall, as
- * tall as the piece along the wall and 0.45 out of it.
+ * tenths of its side deep (on edge it stands about that tall), never less than the README's 0.45.
+ * A whole block's is the cube it is drawn as (D-0006): as deep as it is wide, and leaning, as deep
+ * as its diagonal. A piece of armour's is the piece standing (or hanging) there, roughly: 0.6
+ * across and as tall as the piece; on a wall, as tall as the piece along the wall and 0.45 out of it.
  */
 public final class Hitbox {
     private Hitbox() {}
 
-    /** What a display shows, as its box needs to know. */
-    public enum Piece { ITEM, HEAD, CHEST, LEGS, FEET, ELYTRA }
+    /** What a display shows, as its box needs to know: an item, a whole block (drawn as its cube), or a piece of armour. */
+    public enum Piece { ITEM, BLOCK, HEAD, CHEST, LEGS, FEET, ELYTRA }
 
     /**
      * A box's size in a face's own axes, blocks: across u, across v, and out along the normal.
@@ -46,11 +47,16 @@ public final class Hitbox {
     /**
      * requires: side > 0
      * effects: the size of the box of a display showing {@code piece} on {@code face}, tipped
-     * {@code tip}; an item's square of side {@code side} (armour ignores it)
+     * {@code tip}; an item's or a block's square of side {@code side} (armour ignores it)
      */
     public static Size of(Piece piece, Face face, int tip, double side) {
-        if (piece == Piece.ITEM) {
-            return new Size(side, side, Math.floorMod(tip, Orientation.TIPS) == 0 ? 0.25 : Math.max(0.45, 0.9 * side));
+        if (piece == Piece.ITEM || piece == Piece.BLOCK) {
+            int t = Math.floorMod(tip, Orientation.TIPS);
+            double out = t == 0 ? 0.25 : Math.max(0.45, 0.9 * side);
+            if (piece == Piece.BLOCK) {
+                out = Math.max(out, t == 1 ? side * Math.sqrt(2.0) : side);
+            }
+            return new Size(side, side, out);
         }
         double tall = switch (piece) {
             case HEAD -> 0.55;

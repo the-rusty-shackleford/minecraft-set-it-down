@@ -15,6 +15,9 @@ pile more of the same on it, take it back with a click. Armour stands as the wor
 a key of its own, so no right-click of any item or block changes.
 '''
 
+[[mixins]]
+    config="setitdown.mixins.json"
+
 [[dependencies.${mod_id}]]
     modId="neoforge"
     type="required"
