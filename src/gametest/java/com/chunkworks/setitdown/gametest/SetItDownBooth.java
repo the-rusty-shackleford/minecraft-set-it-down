@@ -361,8 +361,11 @@ public final class SetItDownBooth {
         shot(s, t, mc, "booth-table-back", new Vec3(0.2, 2.35, -0.6), new Vec3(0.0, 1.05, -2.8));
         shot(s, t, mc, "booth-piles", new Vec3(-1.0, 1.75, -0.5), new Vec3(-1.0, 1.0, -1.6));
         shot(s, t, mc, "booth-wall", new Vec3(0.5, 2.3, -3.6), new Vec3(0.5, 2.0, -6.0));
-        shot(s, t, mc, "booth-wall-armour", new Vec3(0.3, 1.9, -3.9), new Vec3(0.3, 1.4, -6.0));
-        shot(s, t, mc, "booth-ceiling", new Vec3(7.5, 0.6, 0.6), new Vec3(7.5, 3.0, -1.6));
+        // Back over the table (the feet clear of its top, or the game pushes the player out toward the
+        // wall), so the five pieces (x -3 to 3.5) fit; the ceiling from its open north side, under its
+        // edge (its south side has the armour stands, and an eye at z 0.6 stood inside one).
+        shot(s, t, mc, "booth-wall-armour", new Vec3(0.3, 2.9, -2.2), new Vec3(0.3, 1.5, -6.0));
+        shot(s, t, mc, "booth-ceiling", new Vec3(7.5, 1.75, -3.4), new Vec3(7.5, 2.9, -1.6));
         shot(s, t, mc, "booth-armour", new Vec3(8.0, 1.6, 6.8), new Vec3(8.0, 0.5, 2.5));
         shot(s, t, mc, "booth-armour-side", new Vec3(4.0, 1.2, 3.0), new Vec3(8.0, 0.4, 3.5));
         shot(s, t, mc, "booth-tips", new Vec3(13.6, 1.5, 0.4), new Vec3(12.0, 1.1, -1.5));
