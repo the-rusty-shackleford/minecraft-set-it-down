@@ -65,7 +65,7 @@ booth ran green again on it. Not yet seen: Rusty's look at 1.1.0 (photos or game
   - Photos in `run/booth/screenshots/` (`booth-held*.png` new); 1.0.0's for comparison were kept
     outside the repo.
 
-## 1.1.1: kitted armour rests as itself; built and gated 2026-10-09, unreleased
+## 1.1.1: kitted armour rests as itself; released 2026-10-10 in pack 1.80.0
 
 For Survivalist Armor (nfx's cosmetic kits, a data component on the piece): a kitted chestplate set
 down after a plain one took the plain one's measured box, since `BoundsCache.armour` kept one box per
@@ -75,7 +75,9 @@ apart from a plain one") fails on 1.1.0 and passes on 1.1.1.
 
 - **Gate (2026-10-09, `clean build --no-build-cache`):** 68 JUnit, 26 GameTests, the booth's 29
   checks, on the rootful `Xwayland :7` that stands in for Xephyr since the OS upgrade.
-- **Release** with Survivalist Armor 0.1.0, on Rusty's go.
+- **Released** with Survivalist Armor 0.1.0 on Rusty's go: tag `v1.1.1` at `f057ce4`, the gate green
+  again on that commit (68 JUnit, 26 GameTests, 29 booth checks), jar `5419ed86` on GitHub and on the
+  server (the server repo's `knowledge/releases/pack-1.80.0.md`).
 
 ## Decisions
 
