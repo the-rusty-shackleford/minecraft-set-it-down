@@ -37,7 +37,8 @@ import net.minecraft.world.level.Level;
  * Measured boxes, kept until the next resource reload: an item's per baked model of its own (a
  * compass's every needle, a bow's every draw) and per its components (which a resource pack's item
  * definitions may choose its held model by: a custom name, an enchantment), a piece of armour's per
- * item, worn on a stand of its own. Measuring is one render into nothing; drawing a display then
+ * item and components (a cosmetic kit, Survivalist Armor's, changes its shape and not its item: D-0008),
+ * worn on a stand of its own. Measuring is one render into nothing; drawing a display then
  * costs no more than an item frame.
  */
 public final class BoundsCache {
@@ -58,8 +59,10 @@ public final class BoundsCache {
 
     private record Key(BakedModel own, int components) {}
 
+    private record Piece(Item item, int components) {}
+
     private static final Map<Key, Entry> ITEMS = new HashMap<>();
-    private static final Map<Item, Box> ARMOUR = new HashMap<>();
+    private static final Map<Piece, Box> ARMOUR = new HashMap<>();
 
     /** effects: how {@code stack} is drawn set down, measured the first time its model is */
     public static Entry item(ItemStack stack, Level level, int seed) {
@@ -97,13 +100,15 @@ public final class BoundsCache {
         return resolved == null ? shaper.getModelManager().getMissingModel() : resolved;
     }
 
-    /** effects: the box {@code piece} fills worn on a stand at the origin facing south, measured the first time */
+    /** effects: the box {@code piece} fills worn on a stand at the origin facing south, measured the first time it is seen
+     * with its components */
     public static Box armour(ItemStack piece, Level level) {
-        Box box = ARMOUR.get(piece.getItem());
+        Piece key = new Piece(piece.getItem(), ItemStack.hashItemAndComponents(piece));
+        Box box = ARMOUR.get(key);
         if (box == null) {
             ArmorStand stand = Mannequins.dressed(new ArmorStand(EntityType.ARMOR_STAND, level), piece);
             box = RenderedBounds.entity(stand);
-            ARMOUR.put(piece.getItem(), box);
+            ARMOUR.put(key, box);
         }
         return box;
     }

@@ -13,5 +13,12 @@
   "setitdown.message.refused": "%s can't be set down",
   "setitdown.message.not_the_same": "Only %s piles here",
   "setitdown.message.does_not_pile": "%s doesn't pile",
-  "setitdown.message.hit_again": "Hit it again to take it back"
+  "setitdown.message.hit_again": "Hit it again to take it back",
+  "tag.item.setitdown.size.long": "Set Down Long",
+  "tag.item.setitdown.size.tool": "Set Down Tool-Sized",
+  "tag.item.setitdown.size.small": "Set Down Small",
+  "tag.item.setitdown.size.tiny": "Set Down Tiny",
+  "tag.item.setitdown.stackable_pile": "Set Down in Piles",
+  "tag.item.setitdown.stackable_cluster": "Set Down in Heaps",
+  "tag.item.setitdown.undisplayable": "Never Set Down"
 }

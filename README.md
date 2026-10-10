@@ -84,7 +84,9 @@ through the game's entity renderer, so it looks exactly as on a real stand in yo
 Armored Legacy's `armor_stand_*.jem` models, trims, dyes, glint and modded armour included. It
 stands on floors facing whoever set it down, hangs upright under ceilings, and hangs back to the
 wall on walls. On a floor or a ceiling, sneak + right-click pitches it forward onto its face;
-walls ignore the tip, since their turn already rolls it about the wall. Armour never piles.
+walls ignore the tip, since their turn already rolls it about the wall. Armour never piles. Its box
+is measured once per item and components (1.1.1, D-0008), so a piece Survivalist Armor's kits
+reshape rests as its own shape, not as the plain piece's.
 
 **Piles and clusters**, by item tag:
 

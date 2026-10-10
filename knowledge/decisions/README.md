@@ -19,3 +19,4 @@ tags: [index]
 | D-0005 | A set-down item is drawn as a hand draws it (a resource pack's 3D model, through Modefite), at rest: its own model as an item frame turns it; a model only the hand draws stands on its base if it could, else lies on its broadest face, a long one corner to corner |
 | D-0006 | A model is drawn at its own size and no bigger than its square; a hand's model as big as the item's own shows; a whole block's box is its cube; shields long, pistols normal |
 | D-0007 | Copies never pass through each other: flat ones lie one on another, thick ones are spread apart and drawn back into their square; a pile too tall for its box is heaped |
+| D-0008 | A piece of armour's box is measured per item and components, so a cosmetic kit (Survivalist Armor's) set down rests as itself |

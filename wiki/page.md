@@ -46,7 +46,8 @@ one: flat things lie on each other, round ones sit side by side, and a pile of t
 
 Helmets, chestplates, leggings, boots and elytra are shown as the worn piece, exactly as on an
 armour stand in your packs. Armour stands on the floor facing you, hangs on walls and hangs
-upright under ceilings. Sneak + right-click tips a floor piece forward onto its face.
+upright under ceilings. Sneak + right-click tips a floor piece forward onto its face. A piece
+wearing a Survivalist Armor kit stands as the kitted piece, at its own size.
 
 ![Armour standing, leaning and lying on the floor](img/armour.webp)
 
