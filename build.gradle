@@ -123,6 +123,9 @@ configurations {
     gametestRuntimeOnly.extendsFrom runtimeOnly
 }
 
+// The gametest server's Backpacks+: the sibling repo's current build. `files` drops a jar that is not there
+// without a word, and the bag tests then run bagless, so the run stops instead (runGameTestServer below).
+def backpacksJar = file('../minecraft-backpacks-plus/build/libs/backpacksplus-0.9.0.jar')
 dependencies {
     // Carried (D-0002): an item taken back from a display goes where a give goes, a carried bag
     // included. Nested, as every consumer nests it; `./gradlew publishToMavenLocal` in
@@ -139,7 +142,7 @@ dependencies {
     gametestImplementation sourceSets.main.output
     gametestImplementation sourceSets.domain.output
     // A real bag for the give: the sibling Backpacks+ build (it provides Carried's stores).
-    gametestRuntimeOnly files('../minecraft-backpacks-plus/build/libs/backpacksplus-0.7.1.jar')
+    gametestRuntimeOnly files(backpacksJar)
 
     testImplementation sourceSets.domain.output
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
@@ -229,4 +232,8 @@ idea {
         downloadSources = true
         downloadJavadoc = true
     }
+}
+
+tasks.named('runGameTestServer') { task ->
+    task.doFirst { if (!backpacksJar.exists()) throw new GradleException("Backpacks+ is missing at ${backpacksJar}: build minecraft-backpacks-plus first") }
 }
