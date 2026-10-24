@@ -1,6 +1,6 @@
 /*
  * Set It Down - put any item down on any block face.
- * Copyright (C) 2026 Rusty Shackleford and nfx
+ * Copyright (C) 2026 Chunkworks
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by
@@ -107,7 +107,7 @@ public final class SetItDownBooth {
         }
         Minecraft mc = Minecraft.getInstance();
         if (!muted) {
-            // Silent from the first tick: Rusty listens to music while these run.
+            // Silent from the first tick: someone may be listening to music while these run.
             mc.options.getSoundSourceOptionInstance(net.minecraft.sounds.SoundSource.MASTER).set(0.0);
             muted = true;
         }

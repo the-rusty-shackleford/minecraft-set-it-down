@@ -3,8 +3,8 @@
 Put any item down on any block face as decoration: on a table, hung on a wall, under a ceiling.
 Turn it, tip it, pile more of the same on it, take it back. Armour stands as the worn piece.
 
-By Rusty Shackleford and nfx, AGPL-3.0-or-later, mod id `setitdown`, package
-`com.chunkworks.setitdown`. Built from the README Rusty sent (2026-10-07) for a mod of that name;
+By Chunkworks, AGPL-3.0-or-later, mod id `setitdown`, package
+`com.chunkworks.setitdown`. Built from a README received 2026-10-07 for a mod of that name;
 where this one differs, and why, is below.
 
 ## Controls
@@ -26,7 +26,7 @@ right-click on a block, taken before the held item's own use. That shadows tilli
 waxing, bone meal, buckets, boats, spawn eggs, item frames, armour stands and more while sneaking,
 and in this pack Create's wrench, which dismantles by sneak + right-click (`WrenchItem.useOn`).
 Even "only when nothing else used the click" would eat food, draw bows, raise shields and block
-the off-hand (pickaxe in the main hand, torches in the off-hand). Rusty: "most if not all things
+the off-hand (pickaxe in the main hand, torches in the off-hand). The ask: "most if not all things
 should be able to be set down in such a way that does not interfere with their other uses. If
 this means changing the control scheme to accommodate for that, so be it." So the gesture is a
 key of its own, every item can be set down (block items, buckets, food, shields, bows, spawn eggs
@@ -57,7 +57,7 @@ by half its diagonal (0.354, not 0.25) once turned 45 degrees, so no corner poke
 lower step takes it on its open half.
 
 **Sizes** (D-0004, D-0006). An item frame draws every item the same size, so the README's sword
-came out the size of a compass. Rusty: "Mounted swords seem pretty small … can we do a better job
+came out the size of a compass. The report: "Mounted swords seem pretty small … can we do a better job
 with relative sizing?" Each item now has a size, the side of the square it fills, from the first
 of four tags it is in:
 
@@ -170,8 +170,8 @@ through displays.
   mouse through the client's click path; and that the hand's 3D models are what is measured and
   drawn. Pixlli's 128x textures are left out: they change the look, not the shapes, and an atlas
   that size is past llvmpipe. Without Modefite, Fresh Food's and Refined Tools' item definitions
-  do nothing on 1.21.1, and without `incompatibleResourcePacks` listing Fresh Food (as Rusty's game
-  does) the game drops it at start: 1.0.0's booth had neither, so it never showed the flat sprites
+  do nothing on 1.21.1, and without `incompatibleResourcePacks` listing Fresh Food (as the players' games
+  do) the game drops it at start: 1.0.0's booth had neither, so it never showed the flat sprites
   a player saw. A key tap is one helper process (`xkey.py tap`): a press and a release sent from
   two held the key past X's repeat delay when the machine was busy, and Y repeated.
 - **The mixin:** `mixin/ItemRendererMixin` (client, MixinExtras' `@WrapOperation` on the item

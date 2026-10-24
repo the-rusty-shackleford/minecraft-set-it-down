@@ -1,4 +1,4 @@
-# Copyright (C) 2026 Rusty Shackleford and nfx. SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (C) 2026 Chunkworks. SPDX-License-Identifier: AGPL-3.0-or-later
 """Fill the booth's game directory (run/booth) with what the pack plays with: the shader mods and
 Complementary, EMF and ETF (armour on its stand), Display Delight and Farmer's Delight (a plate),
 Modefite (which reads the newer item definitions Fresh Food and Refined Tools give their held 3D
@@ -9,7 +9,7 @@ change how things look, not where they rest, and an atlas that size is past llvm
 
 Every file comes from the published pack on the Mod Hub and is checked against the pack's own
 sha1; the folders come from the pack's overrides. Then the booth's options and Iris's settings are
-written, the resource packs in the order Rusty's own game has them. Run once, and again when the
+written, the resource packs in the order the players' games have them. Run once, and again when the
 pack changes one of these:
 
     uv run --no-project python devtools/booth/fetch.py [pack-url]
@@ -29,11 +29,11 @@ BOOTH = Path(__file__).resolve().parents[2] / "run" / "booth"
 MODS = ("iris-neoforge", "sodium-neoforge", "entity_model_features", "entity_texture_features", "displaydelight", "FarmersDelight",
         "modefite", "rangedweaponsmod", "metalsandmaterials")
 SHADER = "ComplementaryUnbound_r5.8.1.zip"
-# Lowest priority first, as options.txt lists them; the pack's own order (Rusty's game).
+# Lowest priority first, as options.txt lists them; the pack's own order (the players' games).
 PACKS = ("3D Default 1.20+ v1.15.0.zip", "Fresh Food.zip", "Farmers3D_1.21.1_fixed.zip",
          "FarmersDelight_ConsistentRaw_v21.zip", "Refined Tools 3.0", "Armored Legacy 1.5.1.zip",
          "Armored-Legacy-No-Tassets")
-# Made for newer versions, loaded anyway: Rusty's game lists it in incompatibleResourcePacks. Without
+# Made for newer versions, loaded anyway: the players' games list it in incompatibleResourcePacks. Without
 # that the game drops it from the list at start ("no longer compatible"), as 1.0.0's booth did.
 INCOMPATIBLE = ("Fresh Food.zip",)
 

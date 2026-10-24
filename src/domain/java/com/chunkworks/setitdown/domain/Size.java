@@ -1,6 +1,6 @@
 /*
  * Set It Down - put any item down on any block face.
- * Copyright (C) 2026 Rusty Shackleford and nfx
+ * Copyright (C) 2026 Chunkworks
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by
@@ -19,7 +19,7 @@ package com.chunkworks.setitdown.domain;
 
 /**
  * How big an item is set down: the side of the square it fills, blocks. An item frame draws every
- * item the same, so a sword came out the size of a compass; Rusty, 2026-10-07: "Mounted swords
+ * item the same, so a sword came out the size of a compass; 2026-10-07: "Mounted swords
  * seem pretty small, like they are the same size as a compass. Maybe full size is too large, but
  * can we do a better job with relative sizing?" (D-0004). So a long weapon fills most of a block
  * (a sword's blade about 0.85, short of full size), a tool a little less, and small things less
