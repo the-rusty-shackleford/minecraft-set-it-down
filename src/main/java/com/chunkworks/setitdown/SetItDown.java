@@ -31,8 +31,10 @@ public final class SetItDown {
 
     /** Items that climb in a pile: ingots, books, bread. */
     public static final TagKey<Item> STACKABLE_PILE = TagKey.create(Registries.ITEM, id("stackable_pile"));
-    /** Items that heap in a cluster: coal, raw ore, apples, fish. */
+    /** Items that heap in a cluster: coal, raw ore, apples, chicken cuts. */
     public static final TagKey<Item> STACKABLE_CLUSTER = TagKey.create(Registries.ITEM, id("stackable_cluster"));
+    /** Items one to a spot whatever the other two say (D-0009): a whole steak, a whole chicken, a whole fish. */
+    public static final TagKey<Item> STACKABLE_SINGLE = TagKey.create(Registries.ITEM, id("stackable_single"));
     /** Sizes (D-0004): long weapons, tools, small things, tiny things; anything else is normal. */
     public static final TagKey<Item> SIZE_LONG = TagKey.create(Registries.ITEM, id("size/long"));
     public static final TagKey<Item> SIZE_TOOL = TagKey.create(Registries.ITEM, id("size/tool"));

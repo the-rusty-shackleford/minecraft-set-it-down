@@ -34,8 +34,9 @@ less, a book, a pistol or a block half a block, a compass small, a nugget tiny.
 ## Piles and heaps
 
 Flat things pile up when you press **Y** at them again: ingots, books, paper, bread, gems, leather,
-bricks, discs. Round things heap up instead: apples, potatoes, coal, raw ore, eggs, meat, fish.
-Up to four of the same go on one spot. Anything else is one to a spot, and a different item right
+bricks, discs, pork chops, bacon, fish slices. Round things heap up instead: apples, potatoes,
+coal, raw ore, eggs, chicken cuts. Up to four of the same go on one spot. A whole joint of meat is
+one to a spot: a steak, a leg of mutton, a whole chicken or rabbit, a whole fish. Anything else is one to a spot, and a different item right
 next to one is refused ("No room here"). Nothing in a pile or a heap ever pokes through another
 one: flat things lie on each other, round ones sit side by side, and a pile of thick 3D things
 (loaves, pies) heaps up instead of climbing into a tower.

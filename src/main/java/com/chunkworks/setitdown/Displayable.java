@@ -102,9 +102,10 @@ public final class Displayable {
         return stack.is(SetItDown.SIZE_TINY) ? Size.TINY : Size.NORMAL;
     }
 
-    /** effects: how {@code stack} shares a spot: armour never; then the pile tag, then the cluster tag; else one to a spot */
+    /** effects: how {@code stack} shares a spot: armour and the single tag never (D-0009); then the pile tag, then the
+     *  cluster tag; else one to a spot */
     public static StackLayout.Kind kind(ItemStack stack) {
-        if (armour(stack)) {
+        if (armour(stack) || stack.is(SetItDown.STACKABLE_SINGLE)) {
             return StackLayout.Kind.SINGLE;
         }
         if (stack.is(SetItDown.STACKABLE_PILE)) {

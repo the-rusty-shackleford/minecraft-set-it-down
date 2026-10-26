@@ -163,6 +163,26 @@ public final class PlacingGameTests {
     }
 
     @GameTest(template = "bench")
+    public void meatGoesByItsSizeAndTheSingleTagOutranksTheHeap(GameTestHelper helper) {
+        Rigs.floor(helper);
+        ServerPlayer p = Rigs.player(helper, "butcher", STAND);
+        p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.COOKED_BEEF, 8));
+        helper.assertTrue(new ItemStack(Items.COOKED_BEEF).is(SetItDown.STACKABLE_CLUSTER)
+                && new ItemStack(Items.COOKED_BEEF).is(SetItDown.STACKABLE_SINGLE), "a steak is in both: #c:foods/cooked_meat heaps it");
+        Rigs.press(helper, p, new BlockPos(3, 0, 4), Direction.UP, 0.5, 0.5);
+        DisplayEntity steak = Rigs.displays(helper).get(0);
+        helper.assertValueEqual(steak.kind(), StackLayout.Kind.SINGLE, "a whole steak is one to a spot");
+        helper.assertValueEqual(Placing.add(p, steak), Placing.Result.DOES_NOT_PILE, "a steak onto a steak");
+        p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.COOKED_PORKCHOP, 8));
+        Rigs.press(helper, p, new BlockPos(6, 0, 4), Direction.UP, 0.5, 0.5);
+        DisplayEntity chops = Rigs.displays(helper).stream().filter(d -> d.item().is(Items.COOKED_PORKCHOP)).findFirst().orElseThrow();
+        helper.assertValueEqual(Placing.add(p, chops), Placing.Result.JOINED, "a chop onto a chop");
+        helper.assertValueEqual(chops.kind(), StackLayout.Kind.PILE, "chops pile");
+        Rigs.done(p);
+        helper.succeed();
+    }
+
+    @GameTest(template = "bench")
     public void theKeyAtADisplayAddsOnlyTheSameItemThatPiles(GameTestHelper helper) {
         Rigs.floor(helper);
         ServerPlayer p = Rigs.player(helper, "adder", STAND);

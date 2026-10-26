@@ -20,5 +20,6 @@
   "tag.item.setitdown.size.tiny": "Set Down Tiny",
   "tag.item.setitdown.stackable_pile": "Set Down in Piles",
   "tag.item.setitdown.stackable_cluster": "Set Down in Heaps",
+  "tag.item.setitdown.stackable_single": "Set Down One to a Spot",
   "tag.item.setitdown.undisplayable": "Never Set Down"
 }

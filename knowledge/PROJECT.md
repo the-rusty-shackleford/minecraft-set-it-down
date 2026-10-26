@@ -79,11 +79,19 @@ apart from a plain one") fails on 1.1.0 and passes on 1.1.1.
   again on that commit (68 JUnit, 26 GameTests, 29 booth checks), jar `5419ed86` on GitHub and on the
   server (the server repo's `knowledge/releases/pack-1.80.0.md`).
 
+## 1.2.0: meat by its size (D-0009); built 2026-10-26, unreleased
+
+Rusty, on Heft's tags piling every steak: small cuts share a spot, a whole joint is one to a spot.
+`#setitdown:stackable_single` outranks pile and cluster (tags only add, and every meat came into the
+cluster tag again through the `c:` food tags). Chops, bacon, slices, mince and patties pile; chicken
+cuts heap; beef, mutton, chicken, rabbit, hams and whole fish are one to a spot. Heft writes the same
+for its own items. Released only on Rusty's go, with Heft.
+
 ## Decisions
 
 D-0001 the key (no right-click changes), D-0002 support, room, clamp and the give, D-0003 armour on
 an invisible stand, D-0004 relative sizes, D-0005 the hand's model at rest, D-0006 at its own size
-(shields long, pistols normal), D-0007 copies never pass through each other. The README's
+(shields long, pistols normal), D-0007 copies never pass through each other, D-0009 meat by its size (the single tag). The README's
 departures are listed in `README.md`.
 
 ## Shape

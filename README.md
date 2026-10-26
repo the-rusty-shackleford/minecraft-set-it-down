@@ -94,9 +94,13 @@ reshape rests as its own shape, not as the plain piece's.
   paper, maps, bread, cookies, pies, leather, bricks, rods and discs. Each layer lies on the one
   below, nudged and turned a few degrees.
 - `#setitdown:stackable_cluster`: round things that heap, such as coal, raw ore, dusts, eggs,
-  slime, ender pearls, apples, carrots, potatoes, berries, meat, fish and seeds. They shrink a
+  slime, ender pearls, apples, carrots, potatoes, berries, chicken cuts and seeds. They shrink a
   little and spread across the spot: a line, then a triangle, then a square, and from five a
   second layer. Every item stays within the display's half-block square.
+- `#setitdown:stackable_single`: one to a spot whatever the other two say (D-0009), so a `c:` tag
+  that pulls an item into a heap cannot. Meat goes by its size: a chop, bacon, a slice, mince or a
+  patty piles; a whole steak, a leg of mutton, a whole chicken or rabbit, a ham and a whole fish are
+  one to a spot.
 
 Copies never pass through each other (D-0007), which a resource pack's 3D models would. Flat ones
 that would overlap lie one on another, a layer each, as steaks or coal do; thick ones are spread
