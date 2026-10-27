@@ -13,7 +13,7 @@ Put any item down on any block face as decoration (Rusty, 2026-10-07, from a REA
 mod of that name; only the README exists, so this is built from it). One entity, the display, and
 one key, Y. Chunkworks, AGPL-3.0-or-later, `com.chunkworks.setitdown`; nests Carried.
 
-## Status: 1.0.0 released (pack 1.77.0, 2026-10-07)
+## Status: 1.2.0 released (pack 1.94.0, 2026-10-27); 1.0.0 first (pack 1.77.0, 2026-10-07)
 
 - Built (2026-10-07): the key and its payloads, the display (one item, a pile, a cluster, or
   armour on an invisible stand), placement with the clamp, the stair cut, the plate and room, turn,
@@ -100,3 +100,10 @@ departures are listed in `README.md`.
 
 `src/domain` (pure, JUnit) ← `src/main` ← `src/gametest` (GameTests and the booth). The booth's
 game directory is filled by `devtools/booth/fetch.py` from the published pack.
+
+## 1.2.0: meat by its size, released 2026-10-27 in pack 1.94.0
+
+D-0009 (`#setitdown:stackable_single` outranks pile and cluster, for Heft's meat by size) and D-0010 (a model
+on a keel rolls onto its side: Fresh Food's fish). Released with Heft 0.1.0 on Rusty's go: tag `v1.2.0` at
+`5ae30e9`, jar `38e09995`. Gate: 69 JUnit tests, 27 GameTests, 29 booth checks. The server repo's
+`knowledge/releases/pack-1.94.0.md` is the deployment record.
