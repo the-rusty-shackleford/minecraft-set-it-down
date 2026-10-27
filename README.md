@@ -44,7 +44,9 @@ draws): the item's own model is turned as an item frame turns it. A model only a
 built upright, as it would sit on a plate, so it stands on its base where it could (no taller than
 twice its narrowest width): Fresh Food's apple stands, stem up, its loaf and steak lie flat.
 Anything taller lies on its broadest face (a carrot on its side, a sword on its flat), and a long
-one corner to corner as its sprite drew it. It is drawn as big as the item's own model shows
+one corner to corner as its sprite drew it. A thing on a keel, a base twice as long as it is wide,
+rolls onto its side once it is three quarters as tall as that width (D-0010): Fresh Food's fish,
+built swimming, lie on their sides. It is drawn as big as the item's own model shows
 (D-0006). 1.0.0 drew the item-frame view, where those packs give the flat sprite.
 
 Each item's box is measured once per model (and per its components, which an item definition may

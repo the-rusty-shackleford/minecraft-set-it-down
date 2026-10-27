@@ -23,7 +23,9 @@ package com.chunkworks.setitdown.domain;
  * plate (Fresh Food's apple, its loaf, its steak), so it stands on its own base where it could
  * stand: no taller than twice its narrowest width. Anything taller would fall over, so it lies on its
  * broadest face, its thinnest dimension out of the surface: a carrot or a sword built standing lies
- * on its side or its flat, a flat one faces out as an item frame's item does.
+ * on its side or its flat, a flat one faces out as an item frame's item does. A thing on a keel, a
+ * footprint twice as long as it is wide, rolls onto its side once it is three quarters as tall as
+ * that width (D-0010): a fish built swimming, belly down, lies on its side.
  */
 public enum Rest {
     /** Thinnest front to back: facing out, as an item frame turns a flat item. */
@@ -37,6 +39,10 @@ public enum Rest {
     private static final double TIE = 1e-4;
     /** How many times its narrowest width a model may stand tall and still stand on its base. */
     private static final double STANDS = 2.0;
+    /** How many times its width a footprint is long, to be a keel a thing would roll off. */
+    private static final double KEEL = 2.0;
+    /** How tall, against the width of its keel, a thing may stand on it before it rolls onto its side. */
+    private static final double ROLLS = 0.75;
     /** How many times its width across the face a thing is long, to be long. */
     private static final double LONG = 1.5;
 
@@ -53,16 +59,23 @@ public enum Rest {
 
     /**
      * effects: how a model whose box in its own frame is {@code own} rests: on its own base if it
-     * stands no taller than twice its narrowest width there; else on its broadest face, its
-     * thinnest dimension out of the surface, a tie of its side and its front going to its front
+     * stands no taller than twice its narrowest width there and is not on a keel it would roll off;
+     * else lying with its narrower width across the base out of the surface (its thinnest, unless it
+     * rolled off a keel), a tie of its side and its front going to its front
      */
     public static Rest of(Box own) {
         double x = own.maxX() - own.minX(), y = own.maxY() - own.minY(), z = own.maxZ() - own.minZ();
-        if (y <= STANDS * Math.min(x, z) + TIE) {
+        if (y <= STANDS * Math.min(x, z) + TIE && !rolls(x, y, z)) {
             return ON_BASE;
         }
-        // Too tall to stand, so its height is not its thinnest: its side or its front is.
+        // Too tall to stand, its height is not its thinnest; rolled off a keel, it lies on the keel's side.
         return z <= x + TIE ? FACE_OUT : ON_SIDE;
+    }
+
+    /** effects: whether a thing x by z across its base and y tall stands on a keel and is tall enough to roll off it */
+    static boolean rolls(double x, double y, double z) {
+        double narrow = Math.min(x, z), wide = Math.max(x, z);
+        return wide >= KEEL * narrow - TIE && y >= ROLLS * narrow - TIE;
     }
 
     /**

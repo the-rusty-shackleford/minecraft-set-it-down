@@ -86,12 +86,14 @@ Rusty, on Heft's tags piling every steak: small cuts share a spot, a whole joint
 cluster tag again through the `c:` food tags). Chops, bacon, slices, mince and patties pile; chicken
 cuts heap; beef, mutton, chicken, rabbit, hams and whole fish are one to a spot. Heft writes the same
 for its own items. Released only on Rusty's go, with Heft.
+Also D-0010: a model on a keel (a base twice as long as wide) at least three quarters as tall as that width
+rolls onto its side, so Fresh Food's fish lie on their sides rather than standing on their bellies.
 
 ## Decisions
 
 D-0001 the key (no right-click changes), D-0002 support, room, clamp and the give, D-0003 armour on
 an invisible stand, D-0004 relative sizes, D-0005 the hand's model at rest, D-0006 at its own size
-(shields long, pistols normal), D-0007 copies never pass through each other, D-0009 meat by its size (the single tag). The README's
+(shields long, pistols normal), D-0007 copies never pass through each other, D-0009 meat by its size (the single tag), D-0010 a thing on a keel rolls onto its side. The README's
 departures are listed in `README.md`.
 
 ## Shape

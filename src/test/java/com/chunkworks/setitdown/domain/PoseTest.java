@@ -165,6 +165,18 @@ final class PoseTest {
     }
 
     @Test
+    void aFishBuiltSwimmingRollsOffItsKeelOntoItsSide() {
+        // Fresh Food's, measured (D-0010): built along z, thin side to side, belly down.
+        assertEquals(Rest.ON_SIDE, Rest.of(sixteenths(6, 6.12, 15)), "a cod, 6.12 tall on a keel 6 wide and 15 long");
+        assertEquals(Rest.ON_SIDE, Rest.of(sixteenths(6, 5.12, 15)), "a cooked cod, lower than it is wide, still rolls");
+        assertEquals(Rest.ON_SIDE, Rest.of(sixteenths(5, 8, 25)), "a salmon");
+        assertEquals(Rest.FACE_OUT, Rest.of(sixteenths(15, 6, 6)), "a fish built across, x long, faces out instead");
+        assertEquals(Rest.ON_BASE, Rest.of(sixteenths(6, 3, 11)), "a loaf is long but low: it stays on its base");
+        assertEquals(Rest.ON_BASE, Rest.of(sixteenths(5, 5, 9)), "a potato's base is not a keel: 9 is under twice 5");
+        assertEquals(Rest.ON_BASE, Rest.of(sixteenths(5, 2, 9)), "a steak lies flat");
+    }
+
+    @Test
     void whatCannotStandLiesWithItsThinnestDimensionOutOfTheSurface() {
         java.util.Random random = new java.util.Random(7);
         int lying = 0;
@@ -172,12 +184,18 @@ final class PoseTest {
             Box own = sixteenths(1 + random.nextInt(30), 1 + random.nextInt(30), 1 + random.nextInt(30));
             double x = own.maxX() - own.minX(), y = own.maxY() - own.minY(), z = own.maxZ() - own.minZ();
             Rest rest = Rest.of(own);
-            assertEquals(y <= 2.0 * Math.min(x, z) + 1e-9, rest == Rest.ON_BASE, own + " rests " + rest);
+            double narrow = Math.min(x, z), wide = Math.max(x, z);
+            boolean keel = wide >= 2.0 * narrow - 1e-9 && y >= 0.75 * narrow - 1e-9;
+            assertEquals(y <= 2.0 * narrow + 1e-9 && !keel, rest == Rest.ON_BASE, own + " rests " + rest);
             if (rest != Rest.ON_BASE) {
                 lying++;
                 Box rested = own.transformed(rest.turn());
                 double rx = rested.maxX() - rested.minX(), ry = rested.maxY() - rested.minY(), rz = rested.maxZ() - rested.minZ();
-                assertTrue(rz <= Math.min(rx, ry) + 1e-9, own + " lies " + rest + ": " + rx + " by " + ry + ", " + rz + " deep");
+                // It lies with its base's narrower width out of the surface: its thinnest, unless it rolled off a keel lower than wide.
+                assertEquals(narrow, rz, 1e-9, own + " lies " + rest + ": " + rx + " by " + ry + ", " + rz + " deep");
+                if (y > narrow) {
+                    assertTrue(rz <= Math.min(rx, ry) + 1e-9, own + " lies with its thinnest out: " + rx + " by " + ry + ", " + rz);
+                }
             }
         }
         assertTrue(lying > 50, "the random boxes include plenty that cannot stand: " + lying);
